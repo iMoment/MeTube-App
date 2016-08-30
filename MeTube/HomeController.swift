@@ -42,7 +42,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     private func setupMenuBar() {
         view.addSubview(menuBar)
         view.addConstraintsWithFormat("H:|[v0]|", views: menuBar)
-        view.addConstraintsWithFormat("V:|[v0(50)]|", views: menuBar)
+        view.addConstraintsWithFormat("V:|[v0(50)]", views: menuBar)
     }
     
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

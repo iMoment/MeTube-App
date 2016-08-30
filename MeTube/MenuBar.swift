@@ -31,6 +31,9 @@ class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UIC
         addSubview(collectionView)
         addConstraintsWithFormat("H:|[v0]|", views: collectionView)
         addConstraintsWithFormat("V:|[v0]|", views: collectionView)
+        
+        let selectedIndexPath = NSIndexPath(forItem: 0, inSection: 0)
+        collectionView.selectItemAtIndexPath(selectedIndexPath, animated: false, scrollPosition: .None)
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -40,7 +43,8 @@ class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UIC
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(cellId, forIndexPath: indexPath) as! MenuCell
         
-        cell.imageView.image = UIImage(named: imageNames[indexPath.item])
+        cell.imageView.image = UIImage(named: imageNames[indexPath.item])?.imageWithRenderingMode(.AlwaysTemplate)
+        cell.tintColor = UIColor.rgb(91, green: 14, blue: 13)
         
         return cell
     }
@@ -63,10 +67,23 @@ class MenuCell: BaseCell {
     
     let imageView: UIImageView = {
         let iv = UIImageView()
-        iv.image = UIImage(named: "home")
+        iv.image = UIImage(named: "home")?.imageWithRenderingMode(.AlwaysTemplate)
+        iv.tintColor = UIColor.rgb(91, green: 14, blue: 13)
         
         return iv
     }()
+    
+    override var highlighted: Bool {
+        didSet {
+            imageView.tintColor = highlighted ? UIColor.whiteColor() : UIColor.rgb(91, green: 14, blue: 13)
+        }
+    }
+    
+    override var selected: Bool {
+        didSet {
+            imageView.tintColor = selected ? UIColor.whiteColor() : UIColor.rgb(91, green: 14, blue: 13)
+        }
+    }
     
     override func setupViews() {
         super.setupViews()
