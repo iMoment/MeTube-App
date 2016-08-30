@@ -36,7 +36,7 @@ class VideoCell: BaseCell {
     
     let userProfileImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "MyProfileImage")
+        imageView.image = UIImage(named: "myProfileImage")
         imageView.layer.cornerRadius = 22
         imageView.layer.masksToBounds = true
         
