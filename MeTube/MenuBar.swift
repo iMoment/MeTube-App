@@ -21,11 +21,12 @@ class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UIC
     }()
     
     let cellId = "cellId"
+    let imageNames = ["home", "trending", "subscriptions", "account"]
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        collectionView.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: cellId)
+        collectionView.registerClass(MenuCell.self, forCellWithReuseIdentifier: cellId)
         
         addSubview(collectionView)
         addConstraintsWithFormat("H:|[v0]|", views: collectionView)
@@ -37,9 +38,9 @@ class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UIC
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(cellId, forIndexPath: indexPath)
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(cellId, forIndexPath: indexPath) as! MenuCell
         
-        cell.backgroundColor = UIColor.blueColor()
+        cell.imageView.image = UIImage(named: imageNames[indexPath.item])
         
         return cell
     }
@@ -58,7 +59,26 @@ class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UIC
     }
 }
 
-
+class MenuCell: BaseCell {
+    
+    let imageView: UIImageView = {
+        let iv = UIImageView()
+        iv.image = UIImage(named: "home")
+        
+        return iv
+    }()
+    
+    override func setupViews() {
+        super.setupViews()
+        
+        addSubview(imageView)
+        addConstraintsWithFormat("H:[v0(28)]", views: imageView)
+        addConstraintsWithFormat("V:[v0(28)]", views: imageView)
+        
+        addConstraint(NSLayoutConstraint(item: imageView, attribute: .CenterX, relatedBy: .Equal, toItem: self, attribute: .CenterX, multiplier: 1, constant: 0))
+        addConstraint(NSLayoutConstraint(item: imageView, attribute: .CenterY, relatedBy: .Equal, toItem: self, attribute: .CenterY, multiplier: 1, constant: 0))
+    }
+}
 
 
 
