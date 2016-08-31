@@ -29,7 +29,7 @@ class VideoCell: BaseCell {
         didSet {
             titleLabel.text = video?.title
             
-            thumbnailImageView.image = UIImage(named: (video?.thumbnailImageName)!)
+            setupThumbnailImage()
             
             if let profileImageName = video?.channel?.profileImageName {
                 userProfileImageView.image = UIImage(named: profileImageName)
@@ -57,6 +57,25 @@ class VideoCell: BaseCell {
                 }
             }
             
+        }
+    }
+    
+    func setupThumbnailImage() {
+        if let thumbnailImageUrl = video?.thumbnailImageName {
+            
+            let url = NSURL(string: thumbnailImageUrl)
+            NSURLSession.sharedSession().dataTaskWithURL(url!, completionHandler: { (data, response, error) in
+                
+                if error != nil {
+                    print(error)
+                    return
+                }
+                
+                dispatch_async(dispatch_get_main_queue(), { 
+                    self.thumbnailImageView.image = UIImage(data: data!)
+                })
+                
+            }).resume()
         }
     }
     
