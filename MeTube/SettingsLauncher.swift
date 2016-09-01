@@ -19,6 +19,7 @@ class Setting: NSObject {
 }
 
 enum SettingName: String {
+    case None = ""
     case Settings = "Settings"
     case TermsPrivacy = "Terms & privacy policy"
     case Feedback = "Feedback"
@@ -93,7 +94,8 @@ class SettingsLauncher: NSObject, UICollectionViewDataSource, UICollectionViewDe
             
         }) { (completed: Bool) in
             
-            if setting.name != .Cancel {
+            if setting.name != .Cancel && setting.name != .None {
+                print(setting.name)
                 self.homeController?.showControllerForSetting(setting)
             }
         }
