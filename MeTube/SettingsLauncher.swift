@@ -8,6 +8,16 @@
 
 import UIKit
 
+class Setting: NSObject {
+    let name: String
+    let imageName: String
+    
+    init(name: String, imageName: String) {
+        self.name = name
+        self.imageName = imageName
+    }
+}
+
 class SettingsLauncher: NSObject, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     let blackDimmedView = UIView()
@@ -21,6 +31,15 @@ class SettingsLauncher: NSObject, UICollectionViewDataSource, UICollectionViewDe
     }()
     
     let cellId = "cellId"
+    
+    let settings: [Setting] = {
+        return [Setting(name: "Settings", imageName: "settings"),
+                Setting(name: "Terms & privacy policy", imageName: "privacy"),
+                Setting(name: "Feedback", imageName: "feedback"),
+                Setting(name: "Help", imageName: "help"),
+                Setting(name: "Switch account", imageName: "switchAccount"),
+                Setting(name: "Cancel", imageName: "cancel")]
+    }()
     
     func showSettings() {
         
@@ -59,11 +78,15 @@ class SettingsLauncher: NSObject, UICollectionViewDataSource, UICollectionViewDe
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 3
+        return settings.count
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(cellId, forIndexPath: indexPath)
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(cellId, forIndexPath: indexPath) as! SettingsCell
+        
+        let setting = settings[indexPath.item]
+        cell.setting = setting
+        
         return cell
     }
     
@@ -71,17 +94,15 @@ class SettingsLauncher: NSObject, UICollectionViewDataSource, UICollectionViewDe
         return CGSizeMake(collectionView.frame.width, 50)
     }
     
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
+        return 0
+    }
+    
     override init() {
         super.init()
         
         settingsCollectionView.dataSource = self
         settingsCollectionView.delegate = self
-        
         settingsCollectionView.registerClass(SettingsCell.self, forCellWithReuseIdentifier: cellId)
     }
 }
-
-
-
-
-
