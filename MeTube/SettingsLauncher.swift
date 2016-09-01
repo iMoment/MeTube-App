@@ -42,6 +42,8 @@ class SettingsLauncher: NSObject, UICollectionViewDataSource, UICollectionViewDe
                 Setting(name: "Cancel", imageName: "cancel")]
     }()
     
+    var homeController: HomeController?
+    
     func showSettings() {
         
         if let window = UIApplication.sharedApplication().keyWindow {
@@ -97,6 +99,24 @@ class SettingsLauncher: NSObject, UICollectionViewDataSource, UICollectionViewDe
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
         return 0
+    }
+    
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        
+        UIView.animateWithDuration(0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .CurveEaseOut, animations: {
+            
+            self.blackDimmedView.alpha = 0
+            
+            if let window = UIApplication.sharedApplication().keyWindow {
+                self.settingsCollectionView.frame = CGRectMake(0, window.frame.height, self.settingsCollectionView.frame.width, self.settingsCollectionView.frame.height)
+            }
+        }) { (completed: Bool) in
+            
+            let setting = self.settings[indexPath.item]
+            if setting.name != "Cancel" {
+                self.homeController?.showControllerForSetting(setting)
+            }
+        }
     }
     
     override init() {
