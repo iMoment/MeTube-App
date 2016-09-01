@@ -31,6 +31,7 @@ class SettingsLauncher: NSObject, UICollectionViewDataSource, UICollectionViewDe
     }()
     
     let cellId = "cellId"
+    let cellHeight: CGFloat = 50
     
     let settings: [Setting] = {
         return [Setting(name: "Settings", imageName: "settings"),
@@ -52,7 +53,7 @@ class SettingsLauncher: NSObject, UICollectionViewDataSource, UICollectionViewDe
             window.addSubview(blackDimmedView)
             window.addSubview(settingsCollectionView)
             
-            let height: CGFloat = 300
+            let height: CGFloat = CGFloat(settings.count) * cellHeight
             let yValue = window.frame.height - height
             settingsCollectionView.frame = CGRectMake(0, window.frame.height, window.frame.width, height)
             
@@ -91,7 +92,7 @@ class SettingsLauncher: NSObject, UICollectionViewDataSource, UICollectionViewDe
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        return CGSizeMake(collectionView.frame.width, 50)
+        return CGSizeMake(collectionView.frame.width, cellHeight)
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {

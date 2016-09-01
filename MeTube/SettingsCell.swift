@@ -23,6 +23,7 @@ class SettingsCell: BaseCell {
     let featureLabel: UILabel = {
         let label = UILabel()
         label.text = "Settings"
+        label.font = UIFont.systemFontOfSize(16)
         
         return label
     }()
@@ -41,7 +42,7 @@ class SettingsCell: BaseCell {
         addSubview(featureLabel)
         addSubview(iconImageView)
         
-        addConstraintsWithFormat("H:|-8-[v0(30)]-8-[v1]|", views: iconImageView, featureLabel)
+        addConstraintsWithFormat("H:|-12-[v0(30)]-24-[v1]|", views: iconImageView, featureLabel)
         addConstraintsWithFormat("V:|[v0]|", views: featureLabel)
         addConstraintsWithFormat("V:[v0(30)]", views: iconImageView)
         addConstraint(NSLayoutConstraint(item: iconImageView, attribute: .CenterY, relatedBy: .Equal, toItem: self, attribute: .CenterY, multiplier: 1, constant: 0))
