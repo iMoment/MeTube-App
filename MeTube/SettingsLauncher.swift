@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SettingsLauncher: NSObject {
+class SettingsLauncher: NSObject, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     let blackDimmedView = UIView()
     
@@ -20,10 +20,11 @@ class SettingsLauncher: NSObject {
         return collectionView
     }()
     
+    let cellId = "cellId"
+    
     func showSettings() {
-        // TODO: Show menu
+        
         if let window = UIApplication.sharedApplication().keyWindow {
-            
             
             blackDimmedView.backgroundColor = UIColor(white: 0, alpha: 0.5)
             
@@ -45,7 +46,6 @@ class SettingsLauncher: NSObject {
                 self.settingsCollectionView.frame = CGRectMake(0, yValue, self.settingsCollectionView.frame.width, self.settingsCollectionView.frame.height)
                 }, completion: nil)
         }
-        
     }
     
     func handleDismiss() {
@@ -58,8 +58,26 @@ class SettingsLauncher: NSObject {
         }
     }
     
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 3
+    }
+    
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(cellId, forIndexPath: indexPath)
+        return cell
+    }
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        return CGSizeMake(collectionView.frame.width, 50)
+    }
+    
     override init() {
         super.init()
+        
+        settingsCollectionView.dataSource = self
+        settingsCollectionView.delegate = self
+        
+        settingsCollectionView.registerClass(SettingsCell.self, forCellWithReuseIdentifier: cellId)
     }
 }
 
