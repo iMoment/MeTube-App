@@ -10,12 +10,21 @@ import UIKit
 
 class SettingsCell: BaseCell {
     
+    override var highlighted: Bool {
+        didSet {
+            backgroundColor = highlighted ? UIColor.darkGrayColor() : UIColor.whiteColor()
+            featureLabel.textColor = highlighted ? UIColor.whiteColor() : UIColor.blackColor()
+            iconImageView.tintColor = highlighted ? UIColor.whiteColor() : UIColor.darkGrayColor()
+        }
+    }
+    
     var setting: Setting? {
         didSet {
             featureLabel.text = setting?.name
             
             if let imageName = setting?.imageName {
-                iconImageView.image = UIImage(named: imageName)
+                iconImageView.image = UIImage(named: imageName)?.imageWithRenderingMode(.AlwaysTemplate)
+                iconImageView.tintColor = UIColor.darkGrayColor()
             }
         }
     }
