@@ -54,19 +54,16 @@ class VideoCell: BaseCell {
                     titleLabelHeightConstraint?.constant = 20
                 }
             }
-            
         }
     }
     
     func setupProfileImage() {
-        
         if let profileImageUrl = video?.channel?.profileImageName {
             userProfileImageView.loadImageUsingUrlString(profileImageUrl)
         }
     }
     
     func setupThumbnailImage() {
-        
         if let thumbnailImageUrl = video?.thumbnailImageName {
            thumbnailImageView.loadImageUsingUrlString(thumbnailImageUrl)
         }

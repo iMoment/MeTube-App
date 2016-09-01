@@ -9,13 +9,22 @@
 import UIKit
 
 class Setting: NSObject {
-    let name: String
+    let name: SettingName
     let imageName: String
     
-    init(name: String, imageName: String) {
+    init(name: SettingName, imageName: String) {
         self.name = name
         self.imageName = imageName
     }
+}
+
+enum SettingName: String {
+    case Settings = "Settings"
+    case TermsPrivacy = "Terms & privacy policy"
+    case Feedback = "Feedback"
+    case Help = "Help"
+    case SwitchAccount = "Switch account"
+    case Cancel = "Cancel"
 }
 
 class SettingsLauncher: NSObject, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
@@ -34,12 +43,13 @@ class SettingsLauncher: NSObject, UICollectionViewDataSource, UICollectionViewDe
     let cellHeight: CGFloat = 50
     
     let settings: [Setting] = {
-        return [Setting(name: "Settings", imageName: "settings"),
-                Setting(name: "Terms & privacy policy", imageName: "privacy"),
-                Setting(name: "Feedback", imageName: "feedback"),
-                Setting(name: "Help", imageName: "help"),
-                Setting(name: "Switch account", imageName: "switchAccount"),
-                Setting(name: "Cancel", imageName: "cancel")]
+        
+        return [Setting(name: .Settings, imageName: "settings"),
+                Setting(name: .TermsPrivacy, imageName: "privacy"),
+                Setting(name: .Feedback, imageName: "feedback"),
+                Setting(name: .Help, imageName: "help"),
+                Setting(name: .SwitchAccount, imageName: "switchAccount"),
+                Setting(name: .Cancel, imageName: "cancel")]
     }()
     
     var homeController: HomeController?
@@ -63,14 +73,16 @@ class SettingsLauncher: NSObject, UICollectionViewDataSource, UICollectionViewDe
             blackDimmedView.alpha = 0
             
             UIView.animateWithDuration(0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .CurveEaseOut, animations: {
-                self.blackDimmedView.alpha = 1
                 
+                self.blackDimmedView.alpha = 1
                 self.settingsCollectionView.frame = CGRectMake(0, yValue, self.settingsCollectionView.frame.width, self.settingsCollectionView.frame.height)
+                
                 }, completion: nil)
         }
     }
     
     func handleDismiss(setting: Setting) {
+        
         UIView.animateWithDuration(0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .CurveEaseOut, animations: {
             
             self.blackDimmedView.alpha = 0
@@ -78,9 +90,10 @@ class SettingsLauncher: NSObject, UICollectionViewDataSource, UICollectionViewDe
             if let window = UIApplication.sharedApplication().keyWindow {
                 self.settingsCollectionView.frame = CGRectMake(0, window.frame.height, self.settingsCollectionView.frame.width, self.settingsCollectionView.frame.height)
             }
+            
         }) { (completed: Bool) in
             
-            if setting.name != "" && setting.name != "Cancel" {
+            if setting.name != .Cancel {
                 self.homeController?.showControllerForSetting(setting)
             }
         }
@@ -91,8 +104,8 @@ class SettingsLauncher: NSObject, UICollectionViewDataSource, UICollectionViewDe
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(cellId, forIndexPath: indexPath) as! SettingsCell
         
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(cellId, forIndexPath: indexPath) as! SettingsCell
         let setting = settings[indexPath.item]
         cell.setting = setting
         

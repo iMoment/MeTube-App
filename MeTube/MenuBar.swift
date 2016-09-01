@@ -96,18 +96,3 @@ class MenuCell: BaseCell {
         addConstraint(NSLayoutConstraint(item: imageView, attribute: .CenterY, relatedBy: .Equal, toItem: self, attribute: .CenterY, multiplier: 1, constant: 0))
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

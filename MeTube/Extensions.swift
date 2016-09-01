@@ -36,9 +36,7 @@ class CustomImageView: UIImageView {
     func loadImageUsingUrlString(urlString: String) {
         
         imageUrlString = urlString
-        
         let url = NSURL(string: urlString)
-        
         image = nil
         
         if let imageFromCache = imageCache.objectForKey(urlString) as? UIImage {
@@ -54,7 +52,6 @@ class CustomImageView: UIImageView {
             }
             
             dispatch_async(dispatch_get_main_queue(), {
-                
                 let imageToCache = UIImage(data: data!)
                 
                 if self.imageUrlString == urlString {
@@ -67,10 +64,3 @@ class CustomImageView: UIImageView {
         }).resume()
     }
 }
-
-
-
-
-
-
-

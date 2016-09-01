@@ -20,7 +20,7 @@ class SettingsCell: BaseCell {
     
     var setting: Setting? {
         didSet {
-            featureLabel.text = setting?.name
+            featureLabel.text = setting?.name.rawValue
             
             if let imageName = setting?.imageName {
                 iconImageView.image = UIImage(named: imageName)?.imageWithRenderingMode(.AlwaysTemplate)
