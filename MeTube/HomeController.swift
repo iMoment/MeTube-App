@@ -109,32 +109,10 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         navigationItem.rightBarButtonItems = [navigationMoreButtonItem, searchBarButtonItem]
     }
     
-    let blackDimmedView = UIView()
+    let settingsLauncher = SettingsLauncher()
     
     func handleMore() {
-        // TODO: Show menu
-        if let window = UIApplication.sharedApplication().keyWindow {
-            
-            
-            blackDimmedView.backgroundColor = UIColor(white: 0, alpha: 0.5)
-            
-            blackDimmedView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
-            
-            window.addSubview(blackDimmedView)
-            blackDimmedView.frame = window.frame
-            blackDimmedView.alpha = 0
-            
-            UIView.animateWithDuration(0.5, animations: { 
-                self.blackDimmedView.alpha = 1
-            })
-        }
-        
-    }
-    
-    func handleDismiss() {
-        UIView.animateWithDuration(0.5) { 
-            self.blackDimmedView.alpha = 0
-        }
+        settingsLauncher.showSettings()
     }
     
     func handleSearch() {

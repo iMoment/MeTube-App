@@ -15,6 +15,7 @@
 		91A910B71D74BAAC00C1B37B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 91A910B51D74BAAC00C1B37B /* Main.storyboard */; };
 		91A910B91D74BAAC00C1B37B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 91A910B81D74BAAC00C1B37B /* Assets.xcassets */; };
 		91A910BC1D74BAAC00C1B37B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 91A910BA1D74BAAC00C1B37B /* LaunchScreen.storyboard */; };
+		91D3B07D1D77FAAF004DE021 /* SettingsLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D3B07C1D77FAAF004DE021 /* SettingsLauncher.swift */; };
 		91D8DDEF1D7594BB00ABA1B0 /* MenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D8DDEE1D7594BB00ABA1B0 /* MenuBar.swift */; };
 /* End PBXBuildFile section */
 
@@ -29,6 +30,7 @@
 		91A910B81D74BAAC00C1B37B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		91A910BB1D74BAAC00C1B37B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		91A910BD1D74BAAC00C1B37B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		91D3B07C1D77FAAF004DE021 /* SettingsLauncher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsLauncher.swift; sourceTree = "<group>"; };
 		91D8DDEE1D7594BB00ABA1B0 /* MenuBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuBar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -72,6 +74,7 @@
 			isa = PBXGroup;
 			children = (
 				91A910B31D74BAAC00C1B37B /* HomeController.swift */,
+				91D3B07C1D77FAAF004DE021 /* SettingsLauncher.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -183,6 +186,7 @@
 				91A910B41D74BAAC00C1B37B /* HomeController.swift in Sources */,
 				913FA1131D7614A400381D0F /* Video.swift in Sources */,
 				9169B9A51D758DCE004B5FF0 /* VideoCell.swift in Sources */,
+				91D3B07D1D77FAAF004DE021 /* SettingsLauncher.swift in Sources */,
 				9169B9A21D758D01004B5FF0 /* Extensions.swift in Sources */,
 				91A910B21D74BAAC00C1B37B /* AppDelegate.swift in Sources */,
 				91D8DDEF1D7594BB00ABA1B0 /* MenuBar.swift in Sources */,
