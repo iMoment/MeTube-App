@@ -10,6 +10,7 @@
 		913FA1131D7614A400381D0F /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = 913FA1121D7614A400381D0F /* Video.swift */; };
 		9169B9A21D758D01004B5FF0 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9169B9A11D758D01004B5FF0 /* Extensions.swift */; };
 		9169B9A51D758DCE004B5FF0 /* VideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9169B9A41D758DCE004B5FF0 /* VideoCell.swift */; };
+		919A26961D78A6AE00A9B314 /* ApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 919A26951D78A6AE00A9B314 /* ApiService.swift */; };
 		91A910B21D74BAAC00C1B37B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A910B11D74BAAC00C1B37B /* AppDelegate.swift */; };
 		91A910B41D74BAAC00C1B37B /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A910B31D74BAAC00C1B37B /* HomeController.swift */; };
 		91A910B71D74BAAC00C1B37B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 91A910B51D74BAAC00C1B37B /* Main.storyboard */; };
@@ -24,6 +25,7 @@
 		913FA1121D7614A400381D0F /* Video.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Video.swift; sourceTree = "<group>"; };
 		9169B9A11D758D01004B5FF0 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		9169B9A41D758DCE004B5FF0 /* VideoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoCell.swift; sourceTree = "<group>"; };
+		919A26951D78A6AE00A9B314 /* ApiService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiService.swift; sourceTree = "<group>"; };
 		91A910AE1D74BAAC00C1B37B /* MeTube.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MeTube.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		91A910B11D74BAAC00C1B37B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		91A910B31D74BAAC00C1B37B /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
@@ -82,6 +84,14 @@
 			name = Controller;
 			sourceTree = "<group>";
 		};
+		919A26941D78A65900A9B314 /* ApiService */ = {
+			isa = PBXGroup;
+			children = (
+				919A26951D78A6AE00A9B314 /* ApiService.swift */,
+			);
+			name = ApiService;
+			sourceTree = "<group>";
+		};
 		91A910A51D74BAAC00C1B37B = {
 			isa = PBXGroup;
 			children = (
@@ -101,6 +111,7 @@
 		91A910B01D74BAAC00C1B37B /* MeTube */ = {
 			isa = PBXGroup;
 			children = (
+				919A26941D78A65900A9B314 /* ApiService */,
 				913FA1111D76148A00381D0F /* Model */,
 				9169B9A31D758D9D004B5FF0 /* View */,
 				9169B9A61D758E0F004B5FF0 /* Controller */,
@@ -191,6 +202,7 @@
 				9169B9A51D758DCE004B5FF0 /* VideoCell.swift in Sources */,
 				91D3B07D1D77FAAF004DE021 /* SettingsLauncher.swift in Sources */,
 				9169B9A21D758D01004B5FF0 /* Extensions.swift in Sources */,
+				919A26961D78A6AE00A9B314 /* ApiService.swift in Sources */,
 				91A910B21D74BAAC00C1B37B /* AppDelegate.swift in Sources */,
 				91D3B07F1D780673004DE021 /* SettingsCell.swift in Sources */,
 				91D8DDEF1D7594BB00ABA1B0 /* MenuBar.swift in Sources */,
