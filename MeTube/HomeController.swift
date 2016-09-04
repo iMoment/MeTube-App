@@ -37,8 +37,6 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         
         collectionView?.backgroundColor = UIColor.whiteColor()
         
-//        collectionView?.registerClass(VideoCell.self, forCellWithReuseIdentifier: "cellId")
-//        collectionView?.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: cellId)
         collectionView?.registerClass(FeedCell.self, forCellWithReuseIdentifier: cellId)
         
         collectionView?.contentInset = UIEdgeInsetsMake(50, 0, 0, 0)
@@ -84,6 +82,10 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     func scrollToMenuIndex(menuIndex: Int) {
         let indexPath = NSIndexPath(forItem: menuIndex, inSection: 0)
         collectionView?.scrollToItemAtIndexPath(indexPath, atScrollPosition: .None, animated: true)
+        
+        if let titleLabel = navigationItem.titleView as? UILabel {
+            titleLabel.text = "  \(titles[menuIndex])"
+        }
     }
     
     lazy var menuBar: MenuBar = {
@@ -110,10 +112,11 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     }
     
     override func scrollViewDidScroll(scrollView: UIScrollView) {
-        print(scrollView.contentOffset.x)
-        
+//        print(scrollView.contentOffset.x)
         menuBar.horizontalBarLeftAnchorConstraint?.constant = scrollView.contentOffset.x / 4
     }
+    
+    let titles = ["Home", "Trending", "Subscriptions", "Account"]
     
     override func scrollViewWillEndDragging(scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         
@@ -122,6 +125,10 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         
         menuBar.collectionView.selectItemAtIndexPath(indexPath, animated: true, scrollPosition: .None)
 //        print(targetContentOffset.memory.x)
+        
+        if let titleLabel = navigationItem.titleView as? UILabel {
+            titleLabel.text = "  \(titles[Int(index)])"
+        }
     }
     
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -136,6 +143,6 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         
-        return CGSizeMake(view.frame.width, view.frame.height)
+        return CGSizeMake(view.frame.width, view.frame.height - 50)
     }
 }
