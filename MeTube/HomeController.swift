@@ -10,22 +10,10 @@ import UIKit
 
 class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
-    var videos: [Video]?
-    
     let cellId = "cellId"
-    
-    func fetchVideos() {
-        ApiService.sharedInstance.fetchVideos { (videos: [Video]) in
-            
-            self.videos = videos
-            self.collectionView?.reloadData()
-        }
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        fetchVideos()
         
         navigationController?.navigationBar.translucent = false
         
@@ -150,26 +138,4 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         
         return CGSizeMake(view.frame.width, view.frame.height)
     }
-    
-//    override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        return videos?.count ?? 0
-//    }
-//    
-//    override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-//        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("cellId", forIndexPath: indexPath) as! VideoCell
-//        
-//        cell.video = videos?[indexPath.item]
-//        
-//        return cell
-//    }
-//    
-//    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-//        // Videos are normally 16:9
-//        let height = (view.frame.width - 16 - 16) * 9 / 16
-//        return CGSizeMake(view.frame.width, height + 16 + 88)
-//    }
-//    
-//    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
-//        return 0
-//    }
 }
