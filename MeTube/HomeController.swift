@@ -12,6 +12,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     
     let cellId = "cellId"
     let trendingCellId = "trendingCellId"
+    let subscriptionCellId = "subscriptionCellId"
     
     let titles = ["Home", "Trending", "Subscriptions", "Account"]
 
@@ -41,6 +42,8 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         collectionView?.backgroundColor = UIColor.whiteColor()
         collectionView?.registerClass(FeedCell.self, forCellWithReuseIdentifier: cellId)
         collectionView?.registerClass(TrendingCell.self, forCellWithReuseIdentifier: trendingCellId)
+        collectionView?.registerClass(SubscriptionCell.self, forCellWithReuseIdentifier: subscriptionCellId)
+        
         collectionView?.contentInset = UIEdgeInsetsMake(50, 0, 0, 0)
         collectionView?.scrollIndicatorInsets = UIEdgeInsetsMake(50, 0, 0, 0)
         collectionView?.pagingEnabled = true
@@ -139,6 +142,8 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         
         if indexPath.item == 1 {
             return collectionView.dequeueReusableCellWithReuseIdentifier(trendingCellId, forIndexPath: indexPath)
+        } else if indexPath.item == 2 {
+            return collectionView.dequeueReusableCellWithReuseIdentifier(subscriptionCellId, forIndexPath: indexPath)
         }
         
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(cellId, forIndexPath: indexPath)
