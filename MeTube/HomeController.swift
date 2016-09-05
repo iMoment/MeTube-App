@@ -16,6 +16,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     
     let titles = ["Home", "Trending", "Subscriptions", "Account"]
 
+    // MARK: viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -47,6 +48,29 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         collectionView?.contentInset = UIEdgeInsetsMake(50, 0, 0, 0)
         collectionView?.scrollIndicatorInsets = UIEdgeInsetsMake(50, 0, 0, 0)
         collectionView?.pagingEnabled = true
+    }
+    
+    lazy var menuBar: MenuBar = {
+        let mb = MenuBar()
+        mb.homeController = self
+        
+        return mb
+    }()
+    
+    private func setupMenuBar() {
+        navigationController?.hidesBarsOnSwipe = true
+        
+        let redView = UIView()
+        redView.backgroundColor = UIColor.rgb(230, green: 32, blue: 31)
+        view.addSubview(redView)
+        view.addConstraintsWithFormat("H:|[v0]|", views: redView)
+        view.addConstraintsWithFormat("V:[v0(50)]", views: redView)
+        
+        view.addSubview(menuBar)
+        view.addConstraintsWithFormat("H:|[v0]|", views: menuBar)
+        view.addConstraintsWithFormat("V:[v0(50)]", views: menuBar)
+        
+        menuBar.topAnchor.constraintEqualToAnchor(topLayoutGuide.bottomAnchor).active = true
     }
     
     func setupNavBarButtons() {
@@ -95,29 +119,6 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         }
     }
     
-    lazy var menuBar: MenuBar = {
-        let mb = MenuBar()
-        mb.homeController = self
-        
-        return mb
-    }()
-    
-    private func setupMenuBar() {
-        navigationController?.hidesBarsOnSwipe = true
-        
-        let redView = UIView()
-        redView.backgroundColor = UIColor.rgb(230, green: 32, blue: 31)
-        view.addSubview(redView)
-        view.addConstraintsWithFormat("H:|[v0]|", views: redView)
-        view.addConstraintsWithFormat("V:[v0(50)]", views: redView)
-        
-        view.addSubview(menuBar)
-        view.addConstraintsWithFormat("H:|[v0]|", views: menuBar)
-        view.addConstraintsWithFormat("V:[v0(50)]", views: menuBar)
-        
-        menuBar.topAnchor.constraintEqualToAnchor(topLayoutGuide.bottomAnchor).active = true
-    }
-    
     override func scrollViewDidScroll(scrollView: UIScrollView) {
 //        print(scrollView.contentOffset.x)
         menuBar.horizontalBarLeftAnchorConstraint?.constant = scrollView.contentOffset.x / 4
@@ -125,12 +126,11 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     
     override func scrollViewWillEndDragging(scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         
+//        print(targetContentOffset.memory.x)
         let index = targetContentOffset.memory.x / view.frame.width
         let indexPath = NSIndexPath(forItem: Int(index), inSection: 0)
         
         menuBar.collectionView.selectItemAtIndexPath(indexPath, animated: true, scrollPosition: .None)
-//        print(targetContentOffset.memory.x)
-        
         setTitleForIndex(Int(index))
     }
     
@@ -140,13 +140,17 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
+        let identifier: String
+        
         if indexPath.item == 1 {
-            return collectionView.dequeueReusableCellWithReuseIdentifier(trendingCellId, forIndexPath: indexPath)
+            identifier = trendingCellId
         } else if indexPath.item == 2 {
-            return collectionView.dequeueReusableCellWithReuseIdentifier(subscriptionCellId, forIndexPath: indexPath)
+            identifier = subscriptionCellId
+        } else {
+            identifier = cellId
         }
         
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(cellId, forIndexPath: indexPath)
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(identifier, forIndexPath: indexPath)
        
         return cell
     }
