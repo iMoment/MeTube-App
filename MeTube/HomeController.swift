@@ -11,6 +11,9 @@ import UIKit
 class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
     let cellId = "cellId"
+    let trendingCellId = "trendingCellId"
+    
+    let titles = ["Home", "Trending", "Subscriptions", "Account"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,13 +39,10 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         }
         
         collectionView?.backgroundColor = UIColor.whiteColor()
-        
         collectionView?.registerClass(FeedCell.self, forCellWithReuseIdentifier: cellId)
-        
+        collectionView?.registerClass(TrendingCell.self, forCellWithReuseIdentifier: trendingCellId)
         collectionView?.contentInset = UIEdgeInsetsMake(50, 0, 0, 0)
-        
         collectionView?.scrollIndicatorInsets = UIEdgeInsetsMake(50, 0, 0, 0)
-        
         collectionView?.pagingEnabled = true
     }
     
@@ -83,8 +83,12 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         let indexPath = NSIndexPath(forItem: menuIndex, inSection: 0)
         collectionView?.scrollToItemAtIndexPath(indexPath, atScrollPosition: .None, animated: true)
         
+        setTitleForIndex(menuIndex)
+    }
+    
+    private func setTitleForIndex(index: Int) {
         if let titleLabel = navigationItem.titleView as? UILabel {
-            titleLabel.text = "  \(titles[menuIndex])"
+            titleLabel.text = "  \(titles[index])"
         }
     }
     
@@ -116,8 +120,6 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         menuBar.horizontalBarLeftAnchorConstraint?.constant = scrollView.contentOffset.x / 4
     }
     
-    let titles = ["Home", "Trending", "Subscriptions", "Account"]
-    
     override func scrollViewWillEndDragging(scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         
         let index = targetContentOffset.memory.x / view.frame.width
@@ -126,9 +128,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         menuBar.collectionView.selectItemAtIndexPath(indexPath, animated: true, scrollPosition: .None)
 //        print(targetContentOffset.memory.x)
         
-        if let titleLabel = navigationItem.titleView as? UILabel {
-            titleLabel.text = "  \(titles[Int(index)])"
-        }
+        setTitleForIndex(Int(index))
     }
     
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -136,6 +136,11 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     }
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        
+        if indexPath.item == 1 {
+            return collectionView.dequeueReusableCellWithReuseIdentifier(trendingCellId, forIndexPath: indexPath)
+        }
+        
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(cellId, forIndexPath: indexPath)
        
         return cell
