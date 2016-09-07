@@ -10,14 +10,24 @@ import UIKit
 
 class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
-    lazy var collectionView: UICollectionView = {
+//    lazy var collectionView: UICollectionView = {
+//        let layout = UICollectionViewFlowLayout()
+//        let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
+//        cv.backgroundColor = UIColor.rgb(230, green: 32, blue: 31)
+//        cv.dataSource = self
+//        cv.delegate = self
+//        
+//        return cv
+//    }()
+    
+    lazy var menuBarCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        cv.backgroundColor = UIColor.rgb(230, green: 32, blue: 31)
-        cv.dataSource = self
-        cv.delegate = self
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.backgroundColor = UIColor.rgb(230, green: 32, blue: 31)
+        collectionView.dataSource = self
+        collectionView.delegate = self
         
-        return cv
+        return collectionView
     }()
     
     let cellId = "cellId"
@@ -28,14 +38,14 @@ class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UIC
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        collectionView.registerClass(MenuCell.self, forCellWithReuseIdentifier: cellId)
+        menuBarCollectionView.registerClass(MenuCell.self, forCellWithReuseIdentifier: cellId)
         
-        addSubview(collectionView)
-        addConstraintsWithFormat("H:|[v0]|", views: collectionView)
-        addConstraintsWithFormat("V:|[v0]|", views: collectionView)
+        addSubview(menuBarCollectionView)
+        addConstraintsWithFormat("H:|[v0]|", views: menuBarCollectionView)
+        addConstraintsWithFormat("V:|[v0]|", views: menuBarCollectionView)
         
         let selectedIndexPath = NSIndexPath(forItem: 0, inSection: 0)
-        collectionView.selectItemAtIndexPath(selectedIndexPath, animated: false, scrollPosition: .None)
+        menuBarCollectionView.selectItemAtIndexPath(selectedIndexPath, animated: false, scrollPosition: .None)
         
         setupHorizontalBar()
     }

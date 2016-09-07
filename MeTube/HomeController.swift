@@ -130,7 +130,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         let index = targetContentOffset.memory.x / view.frame.width
         let indexPath = NSIndexPath(forItem: Int(index), inSection: 0)
         
-        menuBar.collectionView.selectItemAtIndexPath(indexPath, animated: true, scrollPosition: .None)
+        menuBar.menuBarCollectionView.selectItemAtIndexPath(indexPath, animated: true, scrollPosition: .None)
         setTitleForIndex(Int(index))
     }
     
