@@ -57,10 +57,10 @@ class VideoCell: BaseCell {
             if let videoTitle = video?.title {
                 if videoTitle.characters.count > 40 {
                     titleLabelHeightConstraint?.constant = 44
-                    profileImageSeparatorConstraint = "16"
+                    separatorLineViewConstraint?.constant = 36
                 } else {
                     titleLabelHeightConstraint?.constant = 20
-                    profileImageSeparatorConstraint = "36"
+                    separatorLineViewConstraint?.constant = 16
                 }
             }
         }
@@ -132,6 +132,7 @@ class VideoCell: BaseCell {
     
     var titleLabelHeightConstraint: NSLayoutConstraint?
     var profileImageSeparatorConstraint: String = "36"
+    var separatorLineViewConstraint: NSLayoutConstraint?
     
     override func setupViews() {
         addSubview(thumbnailImageView)
@@ -143,7 +144,18 @@ class VideoCell: BaseCell {
         addConstraintsWithFormat("H:|-16-[v0]-16-|", views: thumbnailImageView)
         addConstraintsWithFormat("H:|-16-[v0(44)]", views: userProfileImageView)
         // Vertical Constraints
-        addConstraintsWithFormat("V:|-16-[v0]-8-[v1(44)]-\(profileImageSeparatorConstraint)-[v2(1)]|", views: thumbnailImageView, userProfileImageView, separatorLineView)
+//        addConstraintsWithFormat("V:|-16-[v0]-8-[v1(44)]-\(profileImageSeparatorConstraint)-[v2(1)]|", views: thumbnailImageView, userProfileImageView, separatorLineView)
+        
+        thumbnailImageView.topAnchor.constraintEqualToAnchor(self.topAnchor, constant: 16).active = true
+        userProfileImageView.topAnchor.constraintEqualToAnchor(thumbnailImageView.bottomAnchor, constant: 8).active = true
+        userProfileImageView.heightAnchor.constraintEqualToConstant(44).active = true
+        
+        separatorLineViewConstraint = separatorLineView.topAnchor.constraintEqualToAnchor(userProfileImageView.bottomAnchor, constant: 36)
+        separatorLineViewConstraint?.active = true
+        
+        separatorLineView.heightAnchor.constraintEqualToConstant(1).active = true
+        separatorLineView.bottomAnchor.constraintEqualToAnchor(self.bottomAnchor).active = true
+        
         addConstraintsWithFormat("H:|[v0]|", views: separatorLineView)
         
         addConstraint(NSLayoutConstraint(item: titleLabel, attribute: .Top, relatedBy: .Equal, toItem: thumbnailImageView, attribute: .Bottom, multiplier: 1, constant: 8))
