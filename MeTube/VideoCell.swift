@@ -97,13 +97,6 @@ class VideoCell: BaseCell {
         return imageView
     }()
     
-//    let separatorView: UIView = {
-//        let view = UIView()
-//        view.backgroundColor = UIColor.rgb(230, green: 230, blue: 230)
-//        
-//        return view
-//    }()
-    
     let separatorLineView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.rgb(230, green: 230, blue: 230)
@@ -131,7 +124,6 @@ class VideoCell: BaseCell {
     }()
     
     var titleLabelHeightConstraint: NSLayoutConstraint?
-    var profileImageSeparatorConstraint: String = "36"
     var separatorLineViewConstraint: NSLayoutConstraint?
     
     override func setupViews() {
@@ -155,7 +147,6 @@ class VideoCell: BaseCell {
         
         separatorLineView.heightAnchor.constraintEqualToConstant(1).active = true
         separatorLineView.bottomAnchor.constraintEqualToAnchor(self.bottomAnchor).active = true
-        
         addConstraintsWithFormat("H:|[v0]|", views: separatorLineView)
         
         addConstraint(NSLayoutConstraint(item: titleLabel, attribute: .Top, relatedBy: .Equal, toItem: thumbnailImageView, attribute: .Bottom, multiplier: 1, constant: 8))
