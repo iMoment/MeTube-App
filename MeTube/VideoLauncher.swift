@@ -11,11 +11,37 @@ import AVFoundation
 
 class VideoPlayerView: UIView {
     
+    let activityIndicatorView: UIActivityIndicatorView = {
+        let aiv = UIActivityIndicatorView(activityIndicatorStyle: .WhiteLarge)
+        aiv.translatesAutoresizingMaskIntoConstraints = false
+        aiv.startAnimating()
+        
+        return aiv
+    }()
+    
+    let controlsContainerView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(white: 0, alpha: 0.5)
+        
+        return view
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        backgroundColor = UIColor.blackColor()
+        setupPlayerView()
         
+        controlsContainerView.frame = frame
+        addSubview(controlsContainerView)
+        
+        controlsContainerView.addSubview(activityIndicatorView)
+        activityIndicatorView.centerXAnchor.constraintEqualToAnchor(centerXAnchor).active = true
+        activityIndicatorView.centerYAnchor.constraintEqualToAnchor(centerYAnchor).active = true
+        
+        backgroundColor = UIColor.blackColor()
+    }
+    
+    private func setupPlayerView() {
         let urlString = "https://firebasestorage.googleapis.com/v0/b/gameofchats-762ca.appspot.com/o/message_movies%2F12323439-9729-4941-BA07-2BAE970967C7.mov?alt=media&token=3e37a093-3bc8-410f-84d3-38332af9c726"
         if let url = NSURL(string: urlString) {
             let player = AVPlayer(URL: url)
