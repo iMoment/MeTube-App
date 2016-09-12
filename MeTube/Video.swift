@@ -8,7 +8,26 @@
 
 import UIKit
 
-class Video: NSObject {
+class SafeJsonObject: NSObject {
+    
+    override func setValue(value: AnyObject?, forKey key: String) {
+        let uppercasedFirstCharacter = String(key.characters.first!).uppercaseString
+        
+        let range = key.startIndex...key.startIndex.advancedBy(0)
+        let selectorString = key.stringByReplacingCharactersInRange(range, withString: uppercasedFirstCharacter)
+        
+        let selector = NSSelectorFromString("set\(selectorString):")
+        let responds = self.respondsToSelector(selector)
+        
+        if !responds {
+            return
+        }
+        
+        super.setValue(value, forKey: key)
+    }
+}
+
+class Video: SafeJsonObject {
     
     var thumbnail_image_name: String?
     var title: String?
@@ -23,7 +42,7 @@ class Video: NSObject {
             let channelDictionary = value as! [String: AnyObject]
             self.channel = Channel()
             self.channel?.setValuesForKeysWithDictionary(channelDictionary)
-
+            
         } else {
             super.setValue(value, forKey: key)
         }
@@ -35,7 +54,7 @@ class Video: NSObject {
     }
 }
 
-class Channel: NSObject {
+class Channel: SafeJsonObject {
     
     var name: String?
     var profile_image_name: String?
