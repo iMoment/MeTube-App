@@ -57,9 +57,18 @@ class VideoPlayerView: UIView {
         label.text = "00:00"
         label.textColor = UIColor.whiteColor()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.boldSystemFontOfSize(14)
+        label.font = UIFont.boldSystemFontOfSize(13)
         label.textAlignment = .Right
         
+        return label
+    }()
+    
+    let currentTimeLabel: UILabel = {
+        let label = UILabel()
+        label.text = "00:00"
+        label.textColor = UIColor.whiteColor()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.boldSystemFontOfSize(13)
         return label
     }()
     
@@ -110,14 +119,20 @@ class VideoPlayerView: UIView {
         
         controlsContainerView.addSubview(videoLengthLabel)
         videoLengthLabel.rightAnchor.constraintEqualToAnchor(rightAnchor, constant: -8).active = true
-        videoLengthLabel.bottomAnchor.constraintEqualToAnchor(bottomAnchor).active = true
-        videoLengthLabel.widthAnchor.constraintEqualToConstant(60).active = true
+        videoLengthLabel.bottomAnchor.constraintEqualToAnchor(bottomAnchor, constant: -2).active = true
+        videoLengthLabel.widthAnchor.constraintEqualToConstant(50).active = true
         videoLengthLabel.heightAnchor.constraintEqualToConstant(24).active = true
+        
+        controlsContainerView.addSubview(currentTimeLabel)
+        currentTimeLabel.leftAnchor.constraintEqualToAnchor(leftAnchor, constant: 8).active = true
+        currentTimeLabel.bottomAnchor.constraintEqualToAnchor(bottomAnchor, constant: -2).active = true
+        currentTimeLabel.widthAnchor.constraintEqualToConstant(50).active = true
+        currentTimeLabel.heightAnchor.constraintEqualToConstant(24).active = true
         
         controlsContainerView.addSubview(videoSlider)
         videoSlider.rightAnchor.constraintEqualToAnchor(videoLengthLabel.leftAnchor).active = true
         videoSlider.bottomAnchor.constraintEqualToAnchor(bottomAnchor).active = true
-        videoSlider.leftAnchor.constraintEqualToAnchor(leftAnchor).active = true
+        videoSlider.leftAnchor.constraintEqualToAnchor(currentTimeLabel.rightAnchor).active = true
         videoSlider.heightAnchor.constraintEqualToConstant(30).active = true
         
         backgroundColor = UIColor.blackColor()
