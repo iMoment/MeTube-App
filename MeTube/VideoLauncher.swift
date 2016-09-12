@@ -63,15 +63,32 @@ class VideoPlayerView: UIView {
         return label
     }()
     
-    let videoSlider: UISlider = {
+    lazy var videoSlider: UISlider = {
         let slider = UISlider()
         slider.translatesAutoresizingMaskIntoConstraints = false
         slider.minimumTrackTintColor = UIColor.redColor()
         slider.maximumTrackTintColor = UIColor.whiteColor()
         slider.setThumbImage(UIImage(named: "thumb"), forState: .Normal)
+        slider.addTarget(self, action: #selector(handleSliderChange), forControlEvents: .ValueChanged)
         
         return slider
     }()
+    
+    func handleSliderChange() {
+        print(videoSlider.value)
+        
+        if let duration = player?.currentItem?.duration {
+            let totalSeconds = CMTimeGetSeconds(duration)
+            
+            let value = Float64(videoSlider.value) * totalSeconds
+            
+            let seekTime = CMTime(value: Int64(value), timescale: 1)
+            
+            player?.seekToTime(seekTime, completionHandler: { (completedSeek) in
+                // Do something
+            })
+        }
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
