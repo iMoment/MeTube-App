@@ -104,6 +104,8 @@ class VideoPlayerView: UIView {
         
         setupPlayerView()
         
+        setupGradientLayer()
+        
         controlsContainerView.frame = frame
         addSubview(controlsContainerView)
         
@@ -152,6 +154,24 @@ class VideoPlayerView: UIView {
             player?.play()
             
             player?.addObserver(self, forKeyPath: "currentItem.loadedTimeRanges", options: .New, context: nil)
+            
+            // used to track progress
+            let interval = CMTime(value: 1, timescale: 2)
+            player?.addPeriodicTimeObserverForInterval(interval, queue: dispatch_get_main_queue(), usingBlock: { (progressTime) in
+                
+                let seconds = CMTimeGetSeconds(progressTime)
+                let secondsString = String(format: "%02d", Int(seconds % 60))
+                let minutesString = String(format: "%02d", Int(seconds / 60))
+                
+                self.currentTimeLabel.text = "\(minutesString):\(secondsString)"
+                
+                // move slider thumb
+                if let duration = self.player?.currentItem?.duration {
+                    let durationSeconds = CMTimeGetSeconds(duration)
+                    
+                    self.videoSlider.value = Float(seconds / durationSeconds)
+                }
+            })
         }
     }
     
@@ -173,6 +193,14 @@ class VideoPlayerView: UIView {
                 videoLengthLabel.text = "\(minutesText):\(secondsText)"
             }
         }
+    }
+    
+    private func setupGradientLayer() {
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.frame = bounds
+        gradientLayer.colors = [UIColor.clearColor().CGColor, UIColor.blackColor().CGColor]
+        gradientLayer.locations = [0.7, 1.2]
+        controlsContainerView.layer.addSublayer(gradientLayer)
     }
     
     required init?(coder aDecoder: NSCoder) {
