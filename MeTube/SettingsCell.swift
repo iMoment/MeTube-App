@@ -10,11 +10,11 @@ import UIKit
 
 class SettingsCell: BaseCell {
     
-    override var highlighted: Bool {
+    override var isHighlighted: Bool {
         didSet {
-            backgroundColor = highlighted ? UIColor.darkGrayColor() : UIColor.whiteColor()
-            featureLabel.textColor = highlighted ? UIColor.whiteColor() : UIColor.blackColor()
-            iconImageView.tintColor = highlighted ? UIColor.whiteColor() : UIColor.darkGrayColor()
+            backgroundColor = isHighlighted ? UIColor.darkGray : UIColor.white
+            featureLabel.textColor = isHighlighted ? UIColor.white : UIColor.black
+            iconImageView.tintColor = isHighlighted ? UIColor.white : UIColor.darkGray
         }
     }
     
@@ -23,8 +23,8 @@ class SettingsCell: BaseCell {
             featureLabel.text = setting?.name.rawValue
             
             if let imageName = setting?.imageName {
-                iconImageView.image = UIImage(named: imageName)?.imageWithRenderingMode(.AlwaysTemplate)
-                iconImageView.tintColor = UIColor.darkGrayColor()
+                iconImageView.image = UIImage(named: imageName)?.withRenderingMode(.alwaysTemplate)
+                iconImageView.tintColor = UIColor.darkGray
             }
         }
     }
@@ -32,7 +32,7 @@ class SettingsCell: BaseCell {
     let featureLabel: UILabel = {
         let label = UILabel()
         label.text = "Settings"
-        label.font = UIFont.systemFontOfSize(16)
+        label.font = UIFont.systemFont(ofSize: 16)
         
         return label
     }()
@@ -40,7 +40,7 @@ class SettingsCell: BaseCell {
     let iconImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "settings")
-        imageView.contentMode = .ScaleAspectFill
+        imageView.contentMode = .scaleAspectFill
         
         return imageView
     }()
@@ -54,6 +54,6 @@ class SettingsCell: BaseCell {
         addConstraintsWithFormat("H:|-12-[v0(30)]-24-[v1]|", views: iconImageView, featureLabel)
         addConstraintsWithFormat("V:|[v0]|", views: featureLabel)
         addConstraintsWithFormat("V:[v0(30)]", views: iconImageView)
-        addConstraint(NSLayoutConstraint(item: iconImageView, attribute: .CenterY, relatedBy: .Equal, toItem: self, attribute: .CenterY, multiplier: 1, constant: 0))
+        addConstraint(NSLayoutConstraint(item: iconImageView, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1, constant: 0))
     }
 }

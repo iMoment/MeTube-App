@@ -35,7 +35,7 @@ class SettingsLauncher: NSObject, UICollectionViewDataSource, UICollectionViewDe
     let settingsCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.backgroundColor = UIColor.whiteColor()
+        collectionView.backgroundColor = UIColor.white
         
         return collectionView
     }()
@@ -57,7 +57,7 @@ class SettingsLauncher: NSObject, UICollectionViewDataSource, UICollectionViewDe
     
     func showSettings() {
         
-        if let window = UIApplication.sharedApplication().keyWindow {
+        if let window = UIApplication.shared.keyWindow {
             
             blackDimmedView.backgroundColor = UIColor(white: 0, alpha: 0.5)
             
@@ -68,28 +68,28 @@ class SettingsLauncher: NSObject, UICollectionViewDataSource, UICollectionViewDe
             
             let height: CGFloat = CGFloat(settings.count) * cellHeight
             let yValue = window.frame.height - height
-            settingsCollectionView.frame = CGRectMake(0, window.frame.height, window.frame.width, height)
+            settingsCollectionView.frame = CGRect(x: 0, y: window.frame.height, width: window.frame.width, height: height)
             
             blackDimmedView.frame = window.frame
             blackDimmedView.alpha = 0
             
-            UIView.animateWithDuration(0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .CurveEaseOut, animations: {
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
                 
                 self.blackDimmedView.alpha = 1
-                self.settingsCollectionView.frame = CGRectMake(0, yValue, self.settingsCollectionView.frame.width, self.settingsCollectionView.frame.height)
+                self.settingsCollectionView.frame = CGRect(x: 0, y: yValue, width: self.settingsCollectionView.frame.width, height: self.settingsCollectionView.frame.height)
                 
                 }, completion: nil)
         }
     }
     
-    func handleDismiss(setting: Setting) {
+    func handleDismiss(_ setting: Setting) {
         
-        UIView.animateWithDuration(0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .CurveEaseOut, animations: {
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
             
             self.blackDimmedView.alpha = 0
             
-            if let window = UIApplication.sharedApplication().keyWindow {
-                self.settingsCollectionView.frame = CGRectMake(0, window.frame.height, self.settingsCollectionView.frame.width, self.settingsCollectionView.frame.height)
+            if let window = UIApplication.shared.keyWindow {
+                self.settingsCollectionView.frame = CGRect(x: 0, y: window.frame.height, width: self.settingsCollectionView.frame.width, height: self.settingsCollectionView.frame.height)
             }
             
         }) { (completed: Bool) in
@@ -101,29 +101,29 @@ class SettingsLauncher: NSObject, UICollectionViewDataSource, UICollectionViewDe
         }
     }
     
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return settings.count
     }
     
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(cellId, forIndexPath: indexPath) as! SettingsCell
-        let setting = settings[indexPath.item]
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! SettingsCell
+        let setting = settings[(indexPath as NSIndexPath).item]
         cell.setting = setting
         
         return cell
     }
     
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        return CGSizeMake(collectionView.frame.width, cellHeight)
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: collectionView.frame.width, height: cellHeight)
     }
     
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0
     }
     
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        let setting = self.settings[indexPath.item]
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let setting = self.settings[(indexPath as NSIndexPath).item]
         handleDismiss(setting)
     }
     
@@ -132,6 +132,6 @@ class SettingsLauncher: NSObject, UICollectionViewDataSource, UICollectionViewDe
         
         settingsCollectionView.dataSource = self
         settingsCollectionView.delegate = self
-        settingsCollectionView.registerClass(SettingsCell.self, forCellWithReuseIdentifier: cellId)
+        settingsCollectionView.register(SettingsCell.self, forCellWithReuseIdentifier: cellId)
     }
 }
