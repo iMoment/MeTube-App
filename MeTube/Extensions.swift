@@ -27,7 +27,7 @@ extension UIView {
     }
 }
 
-let imageCache = NSCache<AnyObject, AnyObject>()
+let imageCache = NSCache<NSString, UIImage>()
 
 class CustomImageView: UIImageView {
     
@@ -39,7 +39,7 @@ class CustomImageView: UIImageView {
         let url = URL(string: urlString)
         image = nil
         
-        if let imageFromCache = imageCache.object(forKey: urlString as AnyObject) as? UIImage {
+        if let imageFromCache = imageCache.object(forKey: urlString as NSString) {
             self.image = imageFromCache
             return
         }
@@ -58,7 +58,7 @@ class CustomImageView: UIImageView {
                     self.image = imageToCache
                 }
                 
-                imageCache.setObject(imageToCache!, forKey: urlString as AnyObject)
+                imageCache.setObject(imageToCache!, forKey: urlString as NSString)
             })
             
         }).resume()

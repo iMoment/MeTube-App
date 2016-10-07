@@ -142,9 +142,9 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         
         let identifier: String
         
-        if (indexPath as NSIndexPath).item == 1 {
+        if indexPath.item == 1 {
             identifier = trendingCellId
-        } else if (indexPath as NSIndexPath).item == 2 {
+        } else if indexPath.item == 2 {
             identifier = subscriptionCellId
         } else {
             identifier = cellId

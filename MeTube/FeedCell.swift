@@ -53,7 +53,7 @@ class FeedCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelegate, 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath) as! VideoCell
         
-        cell.video = videos?[(indexPath as NSIndexPath).item]
+        cell.video = videos?[indexPath.item]
         
         return cell
     }
